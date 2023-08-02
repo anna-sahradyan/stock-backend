@@ -51,7 +51,21 @@ const getAllProducts = asyncHandler(async (req, res, next) => {
     const products = await Product.find({user: req.user.id}).sort("-createdAt");
     res.status(200).json(products);
 })
+//?get single product
+const getProduct = asyncHandler(async (req, res, next) => {
+    const product = await Product.findById(req.params.id)
+    if (!product) {
+        res.status(404);
+        throw new Error("Product not found")
+    }
+    if (product.user.toString() !== req.user.id) {
+        res.status(404);
+        throw new Error("User not autorized")
+    }
+    res.status(200).json(product)
+})
 module.exports = {
     createProduct,
-    getAllProducts
+    getAllProducts,
+    getProduct
 }
