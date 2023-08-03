@@ -33,9 +33,9 @@ app.get("/", (req, res) => {
 //?errorMiddleware
 app.use(errorHandler);
 
+
+
 connectDB();
-
-
 app.listen(PORT, () => {
     console.log(` Server is running in http://localhost:${PORT}`)
 })

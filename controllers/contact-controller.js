@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const sendEmail = require("../utils/sendEmail");
-const User = require("./user-controller.js");
+const User = require("../models/User");
 const contactUs = asyncHandler(async (req, res) => {
     const {subject, message} = req.body;
     const user = await User.findById(req.user._id);
@@ -30,5 +30,5 @@ const contactUs = asyncHandler(async (req, res) => {
 
 
 module.exports = {
-    contactUs
+    contactUs,
 }

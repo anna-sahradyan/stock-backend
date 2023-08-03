@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema({
         type: String, maxLength: [250, "Password must not be more than 250 chapters"], default: "bio"
     }
 }, {
-    timestamps: true
+    timestamps: true,
 });
 //?Encrypt password before saving to DB
 userSchema.pre("save", async function (next) {
