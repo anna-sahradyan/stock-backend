@@ -18,10 +18,23 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors({origin: true}));
+// app.use(cors({origin: true}));
 app.use(express.urlencoded({extended: false}));
 app.use("/uploads",express.static(path.join(__dirname,"uploads")))
+const allowedOrigins = ['http://localhost:3000']; // Add other origins if needed
 
+app.use(
+    cors({
+        origin: function (origin, callback) {
+            if (allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
+        credentials: true, // Allow credentials (cookies, authentication headers, etc.)
+    })
+);
 //?Router middleware
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
